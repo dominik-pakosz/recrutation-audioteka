@@ -1,0 +1,4 @@
+product_catalog_add_product:
+  path: /api/products
+  controller: App\ProductCatalog\Ui\Api\AddProductAction
+  methods: POST

@@ -12,3 +12,9 @@ doctrine:
                 dir: '%kernel.project_dir%/src/User/Domain/Model'
                 prefix: 'App\User\Domain\Model'
                 alias: User
+            Product:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/ProductCatalog/Domain/Model'
+                prefix: 'App\ProductCatalog\Domain\Model'
+                alias: Product

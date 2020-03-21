@@ -19,3 +19,29 @@ services:
     App\User\Infrastructure\:
         resource: '../src/User/Infrastructure'
     ###End of configuration for User use case
+
+    ###Configuration for ProductCatalog use case
+    App\ProductCatalog\Application\:
+        resource: '../src/ProductCatalog/Application'
+
+    App\ProductCatalog\Domain\:
+        resource: '../src/ProductCatalog/Domain'
+        exclude: '../src/ProductCatalog/Domain/{Model}'
+
+    App\ProductCatalog\Infrastructure\:
+        resource: '../src/ProductCatalog/Infrastructure'
+
+    App\ProductCatalog\Ui\:
+        resource: '../src/ProductCatalog/Ui'
+
+    App\ProductCatalog\Ui\Api\:
+        resource: '../src/ProductCatalog/Ui/Api'
+        tags: ['controller.service_arguments']
+
+    #Restrict handlers per bus
+    App\ProductCatalog\Application\MessageHandler\Command\:
+        resource: '%kernel.project_dir%/src/ProductCatalog/Application/MessageHandler/Command'
+        tags:
+            - { name: messenger.message_handler, bus: command.bus }
+        autoconfigure: false
+    ###End of configuration for ProductCatalog use case
