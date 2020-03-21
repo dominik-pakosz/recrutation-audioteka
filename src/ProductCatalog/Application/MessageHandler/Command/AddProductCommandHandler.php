@@ -11,7 +11,7 @@ use App\Shared\Domain\ValueObject\Money\Price;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class AddAbsenceCommandHandler implements MessageHandlerInterface
+class AddProductCommandHandler implements MessageHandlerInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -21,7 +21,7 @@ class AddAbsenceCommandHandler implements MessageHandlerInterface
         $this->entityManager = $entityManager;
     }
 
-    public function __invoke(AddProductCommand $command)
+    public function __invoke(AddProductCommand $command): ProductDto
     {
         $product = Product::create(
             new ProductId(),
@@ -33,7 +33,9 @@ class AddAbsenceCommandHandler implements MessageHandlerInterface
         $this->entityManager->persist($product);
 
         return new ProductDto(
-            $product->id()->toString()
+            $product->id()->toString(),
+            $product->name(),
+            $product->price()->getValue()
         );
     }
 }

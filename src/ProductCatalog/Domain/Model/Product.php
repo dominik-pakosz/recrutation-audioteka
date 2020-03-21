@@ -44,7 +44,7 @@ class Product implements AggregateRoot
         $this->createdBy = $createdBy->toString();
     }
 
-    public function create(ProductId $id, string $name, Price $price, UserId $createdBy)
+    public static function create(ProductId $id, string $name, Price $price, UserId $createdBy)
     {
         return new self($id, $name, $price, $createdBy);
     }
