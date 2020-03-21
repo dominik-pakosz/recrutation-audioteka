@@ -5,6 +5,7 @@
         "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "babdev/pagerfanta-bundle": "^2.1",
         "lexik/jwt-authentication-bundle": "^2.6",
         "moneyphp/money": "^3.3",
         "ramsey/uuid": "^3.9",

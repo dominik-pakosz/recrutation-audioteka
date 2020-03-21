@@ -3,38 +3,48 @@
 namespace App\ProductCatalog\Application\MessageHandler\Query;
 
 use App\ProductCatalog\Application\Dto\Product as ProductDto;
-use App\ProductCatalog\Application\Dto\Products as ProductsDto;
 use App\ProductCatalog\Application\Message\Query\ListProductsQuery;
 use App\ProductCatalog\Domain\Model\Product;
 use App\ProductCatalog\Domain\Repository\ProductRepository;
+use App\ProductCatalog\Infrastructure\Repository\DoctrineProductRepository;
+use App\Shared\Application\Dto\PaginatedCollection;
+use App\Shared\Infrastructure\Service\Pagination\PaginationFactory;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class ListProductsQueryHandler implements MessageHandlerInterface
 {
-    /**  @var ProductRepository */
+    /**  @var DoctrineProductRepository */
     private $productRepository;
 
-    public function __construct(ProductRepository $productRepository)
+    /** @var PaginationFactory */
+    private $paginationFactory;
+
+    public function __construct(ProductRepository $productRepository, PaginationFactory $paginationFactory)
     {
         $this->productRepository = $productRepository;
+        $this->paginationFactory = $paginationFactory;
     }
 
-    public function __invoke(ListProductsQuery $command): ProductsDto
+    public function __invoke(ListProductsQuery $command): PaginatedCollection
     {
         /** @var Product[] $products */
-        $products = $this->productRepository->findAll();
+        $queryBuilder = $this->productRepository->findAllQueryBuilder();
 
-        $productsDto = new ProductsDto();
-        foreach ($products as $product) {
-            $productsDto->add(
-                new ProductDto(
-                    $product->id()->toString(),
-                    $product->name(),
-                    $product->price()->getValue()
-                )
+        $paginator = $this->paginationFactory->createPaginator(
+            $queryBuilder,
+            $command->getPage()
+        );
+
+        $products = [];
+        /** @var Product $result */
+        foreach ($paginator->getCurrentPageResults() as $result) {
+            $products[] = new ProductDto(
+                $result->id()->toString(),
+                $result->name(),
+                $result->price()->getValue()
             );
         }
 
-        return $productsDto;
+        return new PaginatedCollection($products, $paginator->getNbResults());
     }
 }

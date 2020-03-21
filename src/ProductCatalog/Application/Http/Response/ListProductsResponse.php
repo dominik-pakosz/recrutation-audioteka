@@ -2,41 +2,20 @@
 
 namespace App\ProductCatalog\Application\Http\Response;
 
-use App\ProductCatalog\Application\Dto\Product;
-use App\ProductCatalog\Application\Dto\Products;
-use App\Shared\Application\Http\Response\JsonResponse;
+use App\Shared\Application\Dto\PaginatedCollection;
+use App\Shared\Application\Http\Response\AbstractPaginatedCollectionResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class ListProductsResponse implements JsonResponse
+class ListProductsResponse extends AbstractPaginatedCollectionResponse
 {
-    /** @var integer */
-    private $count;
-
-    /** @var Product[] */
-    private $products;
-
-    /**
-     * ListProductsResponse constructor.
-     */
-    public function __construct(Products $products)
+    public function __construct(PaginatedCollection $productsCollection)
     {
-        $this->count = count($products->getProducts());
-        $this->products = $products->getProducts();
+        parent::__construct($productsCollection->getItems(), $productsCollection->getTotal());
 
     }
 
     public function responseCode(): int
     {
         return Response::HTTP_OK;
-    }
-
-    public function getCount(): int
-    {
-        return $this->count;
-    }
-
-    public function getProducts(): array
-    {
-        return $this->products;
     }
 }

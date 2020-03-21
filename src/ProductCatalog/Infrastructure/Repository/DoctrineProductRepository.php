@@ -6,6 +6,7 @@ use App\ProductCatalog\Domain\Model\Product;
 use App\ProductCatalog\Domain\Repository\ProductRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,5 +23,10 @@ class DoctrineProductRepository extends ServiceEntityRepository implements Produ
     public function findAll(): array
     {
         return parent::findAll();
+    }
+
+    public function findAllQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('product');
     }
 }
