@@ -8,6 +8,7 @@ use App\ProductCatalog\Application\Http\Response\AddProductResponse;
 use App\ProductCatalog\Application\Message\Command\AddProductCommand;
 use App\Shared\Ui\Api\AbstractAction;
 use App\Shared\Domain\ValueObject\Identity\Uuid\UserId;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;

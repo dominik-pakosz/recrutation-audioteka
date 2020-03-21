@@ -2,3 +2,8 @@ product_catalog_add_product:
   path: /api/products
   controller: App\ProductCatalog\Ui\Api\AddProductAction
   methods: POST
+
+product_catalog_delete_product:
+  path: /api/products/{id}
+  controller: App\ProductCatalog\Ui\Api\DeleteProductAction
+  methods: DELETE

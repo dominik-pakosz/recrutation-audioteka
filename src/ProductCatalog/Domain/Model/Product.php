@@ -68,4 +68,9 @@ class Product implements AggregateRoot
     {
         return new UserId($this->createdBy);
     }
+
+    public function canDelete(UserId $userId): bool
+    {
+        return $this->createdBy()->toString() === $userId->toString();
+    }
 }
