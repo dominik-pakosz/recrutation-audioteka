@@ -7,3 +7,8 @@ product_catalog_delete_product:
   path: /api/products/{id}
   controller: App\ProductCatalog\Ui\Api\DeleteProductAction
   methods: DELETE
+
+product_catalog_list_products:
+  path: /api/products
+  controller: App\ProductCatalog\Ui\Api\ListProductsAction
+  methods: GET

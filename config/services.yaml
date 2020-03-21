@@ -44,4 +44,11 @@ services:
         tags:
             - { name: messenger.message_handler, bus: command.bus }
         autoconfigure: false
+
+
+    App\ProductCatalog\Application\MessageHandler\Query\:
+        resource: '%kernel.project_dir%/src/ProductCatalog/Application/MessageHandler/Query'
+        tags:
+            - { name: messenger.message_handler, bus: query.bus }
+        autoconfigure: false
     ###End of configuration for ProductCatalog use case
