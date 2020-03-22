@@ -21,7 +21,7 @@ class DeleteProductAction extends AbstractAction
     }
 
     /**
-     * @IsGranted("ROLE_USER")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function __invoke(Product $product)
     {

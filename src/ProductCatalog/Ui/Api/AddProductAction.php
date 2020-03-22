@@ -24,7 +24,7 @@ class AddProductAction extends AbstractAction
     }
 
     /**
-     * @IsGranted("ROLE_USER")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function __invoke(Request $request)
     {
