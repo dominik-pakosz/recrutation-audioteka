@@ -62,4 +62,9 @@ class Cart implements AggregateRoot
     {
         return $this->items->toArray();
     }
+
+    public function owner(): UserId
+    {
+        return new UserId($this->userId);
+    }
 }

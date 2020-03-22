@@ -4,6 +4,7 @@ namespace App\ProductCatalog\Infrastructure\Repository;
 
 use App\ProductCatalog\Domain\Model\Product;
 use App\ProductCatalog\Domain\Repository\ProductRepository;
+use App\Shared\Domain\ValueObject\Identity\Uuid\ProductId;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
@@ -28,5 +29,14 @@ class DoctrineProductRepository extends ServiceEntityRepository implements Produ
     public function findAllQueryBuilder(): QueryBuilder
     {
         return $this->createQueryBuilder('product');
+    }
+
+    public function findOneById(ProductId $id): ?Product
+    {
+        return $this->createQueryBuilder('product')
+            ->where('product.id = :productId')
+            ->setParameter('productId', $id->toString())
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

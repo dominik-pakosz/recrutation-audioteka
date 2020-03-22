@@ -1,0 +1,4 @@
+shopping_cart_add_product_to_cart:
+  path: /api/carts/products
+  controller: App\ShoppingCart\Ui\Api\AddProductToCartAction
+  methods: POST
