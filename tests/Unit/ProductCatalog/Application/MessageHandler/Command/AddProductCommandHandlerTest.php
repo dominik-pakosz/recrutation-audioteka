@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\ProductCatalog\MessageHandler\Command;
+namespace App\Tests\Unit\ProductCatalog\Application\MessageHandler\Command;
 
 use App\ProductCatalog\Application\Dto\Product;
 use App\ProductCatalog\Application\Message\Command\AddProductCommand;

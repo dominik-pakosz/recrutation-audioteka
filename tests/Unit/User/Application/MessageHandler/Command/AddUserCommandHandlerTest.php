@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\User\MessageHandler\Command;
+namespace App\Tests\Unit\User\Application\MessageHandler\Command;
 
 use App\User\Application\Dto\User;
 use App\User\Application\Message\Command\AddUserCommand;

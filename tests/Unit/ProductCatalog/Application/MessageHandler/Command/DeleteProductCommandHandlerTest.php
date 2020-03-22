@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\ProductCatalog\MessageHandler\Command;
+namespace App\Tests\Unit\ProductCatalog\Application\MessageHandler\Command;
 
 use App\ProductCatalog\Application\Message\Command\DeleteProductCommand;
 use App\ProductCatalog\Application\MessageHandler\Command\DeleteProductCommandHandler;

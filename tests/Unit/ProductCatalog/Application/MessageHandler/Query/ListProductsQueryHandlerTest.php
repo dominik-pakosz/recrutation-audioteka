@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\ProductCatalog\MessageHandler\Query;
+namespace App\Tests\Unit\ProductCatalog\Application\MessageHandler\Query;
 
 use App\ProductCatalog\Application\Message\Query\ListProductsQuery;
 use App\ProductCatalog\Application\MessageHandler\Query\ListProductsQueryHandler;
