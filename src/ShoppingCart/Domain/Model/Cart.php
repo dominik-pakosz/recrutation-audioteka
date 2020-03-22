@@ -33,7 +33,8 @@ class Cart implements AggregateRoot
      * @ORM\OneToMany(
      *   targetEntity="App\ShoppingCart\Domain\Model\CartItem",
      *   mappedBy="cart",
-     *   cascade={"PERSIST"}
+     *   cascade={"persist"},
+     *   orphanRemoval=true
      * )
      */
     private $items;
@@ -55,6 +56,15 @@ class Cart implements AggregateRoot
         $this->items->add(
             CartItem::create($productId, $this)
         );
+    }
+
+    public function deleteItem(ProductId $productId): void
+    {
+        foreach ($this->items as $item) {
+            if ($item->productId()->toString() === $productId->toString()) {
+                $this->items->removeElement($item);
+            }
+        }
     }
 
     /** @return CartItem[] */

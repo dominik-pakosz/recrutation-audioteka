@@ -2,3 +2,8 @@ shopping_cart_add_product_to_cart:
   path: /api/carts/products
   controller: App\ShoppingCart\Ui\Api\AddProductToCartAction
   methods: POST
+
+shopping_cart_delete_product_from_cart:
+  path: /api/carts/products/{productId}
+  controller: App\ShoppingCart\Ui\Api\DeleteProductFromCartAction
+  methods: DELETE
