@@ -1,0 +1,4 @@
+user_add_user:
+  path: /api/users
+  controller: App\User\Ui\Api\AddUserAction
+  methods: POST

@@ -12,12 +12,29 @@ services:
     ###End of configuration for Shared
 
     ###Configuration for User use case
+    App\User\Application\:
+        resource: '../src/User/Application'
+
     App\User\Domain\:
         resource: '../src/User/Domain'
         exclude: '../src/User/Domain/{Model}'
 
     App\User\Infrastructure\:
         resource: '../src/User/Infrastructure'
+
+    App\User\Ui\:
+        resource: '../src/User/Ui'
+
+    App\User\Ui\Api\:
+        resource: '../src/User/Ui/Api'
+        tags: ['controller.service_arguments']
+
+    #Restrict handlers per bus
+    App\User\Application\MessageHandler\Command\:
+        resource: '%kernel.project_dir%/src/User/Application/MessageHandler/Command'
+        tags:
+            - { name: messenger.message_handler, bus: command.bus }
+        autoconfigure: false
     ###End of configuration for User use case
 
     ###Configuration for ProductCatalog use case

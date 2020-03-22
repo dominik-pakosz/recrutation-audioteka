@@ -103,4 +103,9 @@ class User implements UserInterface, AggregateRoot
     {
         //do nothing
     }
+
+    public function setEncodedPassword(string $encodedPassword): void
+    {
+        $this->password = $encodedPassword;
+    }
 }
