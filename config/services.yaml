@@ -62,10 +62,47 @@ services:
             - { name: messenger.message_handler, bus: command.bus }
         autoconfigure: false
 
-
     App\ProductCatalog\Application\MessageHandler\Query\:
         resource: '%kernel.project_dir%/src/ProductCatalog/Application/MessageHandler/Query'
         tags:
             - { name: messenger.message_handler, bus: query.bus }
         autoconfigure: false
     ###End of configuration for ProductCatalog use case
+
+    ###Configuration for ShoppingCart use case
+    App\ShoppingCart\Application\:
+        resource: '../src/ShoppingCart/Application'
+
+    App\ShoppingCart\Domain\:
+        resource: '../src/ShoppingCart/Domain'
+        exclude: '../src/ShoppingCart/Domain/{Model}'
+
+    App\ShoppingCart\Infrastructure\:
+        resource: '../src/ShoppingCart/Infrastructure'
+
+    App\ShoppingCart\Ui\:
+        resource: '../src/ShoppingCart/Ui'
+
+    App\ShoppingCart\Ui\Api\:
+        resource: '../src/ShoppingCart/Ui/Api'
+        tags: ['controller.service_arguments']
+
+    #Restrict handlers per bus
+    App\ShoppingCart\Application\MessageHandler\Command\:
+        resource: '%kernel.project_dir%/src/ShoppingCart/Application/MessageHandler/Command'
+        tags:
+            - { name: messenger.message_handler, bus: command.bus }
+        autoconfigure: false
+
+    App\ShoppingCart\Application\MessageHandler\Query\:
+        resource: '%kernel.project_dir%/src/ShoppingCart/Application/MessageHandler/Query'
+        tags:
+            - { name: messenger.message_handler, bus: query.bus }
+        autoconfigure: false
+
+    App\ShoppingCart\Application\MessageHandler\Event\:
+        resource: '%kernel.project_dir%/src/ShoppingCart/Application/MessageHandler/Event'
+        tags:
+            - { name: messenger.message_handler, bus: event.bus }
+        autoconfigure: false
+    ###End of configuration for ShoppingCart use case
