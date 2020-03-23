@@ -73,4 +73,14 @@ class Product implements AggregateRoot
     {
         return $this->createdBy()->toString() === $userId->toString();
     }
+
+    public function changeName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function changePrice(Price $price): void
+    {
+        $this->price = $price->getValue();
+    }
 }

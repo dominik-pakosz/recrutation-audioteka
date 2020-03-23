@@ -12,3 +12,8 @@ product_catalog_list_products:
   path: /api/products
   controller: App\ProductCatalog\Ui\Api\ListProductsAction
   methods: GET
+
+product_catalog_edit_product:
+  path: /api/products/{id}
+  controller: App\ProductCatalog\Ui\Api\EditProductAction
+  methods: PATCH
