@@ -23,9 +23,25 @@ openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
 ```
 * `exit`
 
-#Usage
+# Usage
 
-###Users in database:
-There is API endpoint for creating users. Only admin can create users, admin credentials:
-* username `admin@gmail.com`, password `password`.
-Use those credentials to get JWT token from `/api/login` endpoint.
+### Login
+* go to `[POST] http://symfony.localhost/api/login`
+* use payload listed below:
+```
+{
+   	"username": "admin@gmail.com",
+   	"password": "password"
+}
+```
+
+### Users in database:
+Fully functional admin is already in database.
+
+There is API endpoint for creating users (`[POST] http://symfony.localhost/api/users`). Only admin can create users. Payload for this endpoint:
+```
+{
+   	"email": "abc@gmail.com",
+   	"plainPassword": "abc"
+}
+```
