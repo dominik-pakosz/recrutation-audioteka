@@ -1,18 +1,18 @@
 <?php
 
-namespace App\ProductCatalog\Ui\Api;
+namespace App\ShoppingCart\Ui\Api;
 
-use App\ProductCatalog\Application\Http\Response\ListProductsResponse;
-use App\ProductCatalog\Application\Message\Query\ListProductsQuery;
-use App\Shared\Application\Dto\PaginatedCollection;
-use App\Shared\Infrastructure\Service\Pagination\PaginationFactory;
+use App\Shared\Domain\ValueObject\Identity\Uuid\UserId;
 use App\Shared\Ui\Api\AbstractAction;
+use App\ShoppingCart\Application\Dto\Cart;
+use App\ShoppingCart\Application\Http\Response\GetCartResponse;
+use App\ShoppingCart\Application\Message\Query\GetCartQuery;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 
-class ListProductsAction extends AbstractAction
+class GetCartAction extends AbstractAction
 {
     /** @var MessageBusInterface */
     private $queryBus;
@@ -27,17 +27,19 @@ class ListProductsAction extends AbstractAction
      */
     public function __invoke(Request $request)
     {
-        $query = new ListProductsQuery($request->query->get(PaginationFactory::PAGE, PaginationFactory::DEFAULT_PAGE));
+        /** @var UserId $userId */
+        $userId = $this->getUser()->id();
+        $query = new GetCartQuery($userId->toString());
 
-        return new ListProductsResponse($this->query($query));
+        return new GetCartResponse($this->query($query));
     }
 
-    private function query(ListProductsQuery $query): PaginatedCollection
+    private function query(GetCartQuery $query): Cart
     {
         $envelope = $this->queryBus->dispatch($query);
         /** @var HandledStamp $handledStamp */
         $handledStamp = $envelope->last(HandledStamp::class);
-        /** @var PaginatedCollection $result */
+        /** @var Cart $result */
         $result = $handledStamp->getResult();
 
         return $result;

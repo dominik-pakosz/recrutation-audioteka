@@ -43,7 +43,7 @@ class AddProductAction extends AbstractAction
         return new AddProductResponse($this->command($command));
     }
 
-    public function command(AddProductCommand $command): Product
+    private function command(AddProductCommand $command): Product
     {
         $envelope = $this->commandBus->dispatch($command);
         /** @var HandledStamp $handledStamp */

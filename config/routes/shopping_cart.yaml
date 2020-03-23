@@ -7,3 +7,8 @@ shopping_cart_delete_product_from_cart:
   path: /api/carts/products/{productId}
   controller: App\ShoppingCart\Ui\Api\DeleteProductFromCartAction
   methods: DELETE
+
+shopping_cart_get_cart:
+  path: /api/carts
+  controller: App\ShoppingCart\Ui\Api\GetCartAction
+  methods: GET

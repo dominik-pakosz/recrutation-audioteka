@@ -11,4 +11,10 @@ interface ProductRepository
     public function findAll(): array;
 
     public function findOneById(ProductId $id): ?Product;
+
+    /**
+     * @param ProductId[] $productIds
+     * @return Product[]
+     */
+    public function findAllByIds(array $productIds): array;
 }

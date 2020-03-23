@@ -13,7 +13,7 @@ class Product
     /** @var string */
     private $name;
 
-    /** @var string */
+    /** @var Price */
     private $price;
 
     private function __construct(ProductId $id, string $name, Price $price)
@@ -38,7 +38,7 @@ class Product
         return $this->name;
     }
 
-    public function price(): string
+    public function price(): Price
     {
         return $this->price;
     }

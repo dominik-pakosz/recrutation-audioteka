@@ -39,4 +39,19 @@ class DoctrineProductRepository extends ServiceEntityRepository implements Produ
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    /** @inheritDoc */
+    public function findAllByIds(array $productIds): array
+    {
+        $productIdsAsString = [];
+        foreach ($productIds as $productId) {
+            $productIdsAsString[] = $productId->toString();
+        }
+
+        return $this->createQueryBuilder('product')
+            ->where('product.id IN (:productIds)')
+            ->setParameter('productIds', $productIdsAsString)
+            ->getQuery()
+            ->getResult();
+    }
 }

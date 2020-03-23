@@ -34,4 +34,42 @@ class ProductCatalogRepositoryInternalClient implements ProductCatalogClient
             $fetchedData->price()
         );
     }
+
+    public function getProductsByProductIds(array $productIds): array
+    {
+        /** @var ProductCatalogProduct[] $fetchedData */
+        $fetchedData = $this->productRepository->findAllByIds($productIds);
+
+        if (count($fetchedData) !== count($productIds)) {
+            throw ProductNotFoundException::byProductId(
+                $this->checkWhichProductDoesNotExist($fetchedData, $productIds)
+            );
+        }
+
+        $result = [];
+        foreach ($fetchedData as $product) {
+            $result[] = ShoppingCartProduct::recreate(
+                $product->id(),
+                $product->name(),
+                $product->price()
+            );
+        }
+
+        return $result;
+    }
+
+    private function checkWhichProductDoesNotExist(array $products, array $productIds): ProductId
+    {
+        $productIdsAsString = [];
+
+        foreach ($productIds as $productId) {
+            $productIdsAsString[] = $productId->toString();
+        }
+
+        foreach ($products as $product) {
+            if (!in_array($product->id()->toString(), $productIdsAsString)) {
+                return $product->id();
+            }
+        }
+    }
 }

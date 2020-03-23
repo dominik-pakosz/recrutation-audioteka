@@ -6,6 +6,7 @@ use App\Shared\Domain\AggregateRoot;
 use App\Shared\Domain\ValueObject\Identity\Uuid\CartId;
 use App\Shared\Domain\ValueObject\Identity\Uuid\ProductId;
 use App\Shared\Domain\ValueObject\Identity\Uuid\UserId;
+use App\ShoppingCart\Domain\Exception\CartMaxOccupancyException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,6 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Cart implements AggregateRoot
 {
+    public const MAX_PRODUCTS = 3;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="string", unique=true, length=36)
@@ -53,6 +56,10 @@ class Cart implements AggregateRoot
 
     public function addItem(ProductId $productId): void
     {
+        if ($this->items->count() === self::MAX_PRODUCTS) {
+            throw CartMaxOccupancyException::tooManyItems($this->owner());
+        }
+
         $this->items->add(
             CartItem::create($productId, $this)
         );
@@ -76,5 +83,18 @@ class Cart implements AggregateRoot
     public function owner(): UserId
     {
         return new UserId($this->userId);
+    }
+
+    /**
+     * @return ProductId[] array
+     */
+    public function getProductIds(): array
+    {
+        $productIds = [];
+        foreach ($this->items() as $item) {
+            $productIds[] = $item->productId();
+        }
+
+        return $productIds;
     }
 }

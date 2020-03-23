@@ -23,4 +23,12 @@ class Price extends BaseValueObject
             );
         }
     }
+
+    public function add(Price $price): self
+    {
+        $actualPrice = Money::PLN($this->getValue());
+        $added = $actualPrice->add(Money::PLN($price->getValue()));
+
+        return new self($added->getAmount());
+    }
 }

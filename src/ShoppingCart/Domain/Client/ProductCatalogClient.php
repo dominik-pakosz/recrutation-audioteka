@@ -8,4 +8,10 @@ use App\ShoppingCart\Domain\Model\Product;
 interface ProductCatalogClient
 {
     public function getProductByProductId(ProductId $productId): Product;
+
+    /**
+     * @param ProductId[] $productIds
+     * @return Product[]
+     */
+    public function getProductsByProductIds(array $productIds): array;
 }
