@@ -45,3 +45,9 @@ There is API endpoint for creating users (`[POST] http://symfony.localhost/api/u
    	"plainPassword": "abc"
 }
 ```
+
+# Tests
+
+To run test:
+* go to container: `docker exec -it php-fpm sh`
+* type `bin/phpunit`
