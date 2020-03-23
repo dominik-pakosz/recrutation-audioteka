@@ -24,6 +24,7 @@ openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
 * `exit`
 
 #Usage
+
 ###Users in database:
 There is API endpoint for creating users. Only admin can create users, admin credentials:
 * username `admin@gmail.com`, password `password`.
